@@ -14,11 +14,11 @@ import type { SocialLinks } from "@/types";
 // ============================================
 
 export const socialLinks: SocialLinks = {
-  github: "https://github.com/joestratford80-tekly", // e.g. "https://github.com/your-username"
-  linkedin: "https://www.linkedin.com/in/jonathan-okoloko-5ba629310/", // e.g. "https://linkedin.com/in/your-username"
-  email: "mailto:jonathanokoloko0@gmail.com", // e.g. "mailto:you@example.com" — the Contact form uses this too
-  kaggle: "https://www.kaggle.com/jonathantek", // e.g. "https://kaggle.com/your-username"
-  behance: "#", // e.g. "https://behance.net/your-username"
-  tekly: "#", // e.g. "https://tekly.example.com"
-  resume: "https://drive.google.com/file/d/1Xwa-I6JZ7J5fXdBZ8Yxs0_MgZV6E4NGJ/view?usp=drive_link", // e.g. link to a hosted PDF resume
+  github: { url: "https://github.com/joestratford80-tekly", label: "GitHub" },
+  linkedin: { url: "https://www.linkedin.com/in/jonathan-okoloko-5ba629310/", label: "LinkedIn" },
+  email: { url: "mailto:jonathanokoloko0@gmail.com", label: "Email" },
+  kaggle: { url: "https://www.kaggle.com/jonathantek", label: "Kaggle" },
+  behance: { url: "#", label: "Behance" },
+  tekly: { url: "#", label: "Tekly" },
+  resume: { url: "https://drive.google.com/file/d/1Xwa-I6JZ7J5fXdBZ8Yxs0_MgZV6E4NGJ/view?usp=drive_link", label: "Resume" },
 };
