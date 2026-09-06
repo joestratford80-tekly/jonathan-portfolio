@@ -79,12 +79,17 @@ export interface LabEntry {
   next: string;
 }
 
+export interface SocialLink {
+  url: string;
+  label: string;
+}
+
 export interface SocialLinks {
-  github: string;
-  linkedin: string;
-  email: string;
-  kaggle: string;
-  behance: string;
-  tekly: string;
-  resume: string;
+  github: SocialLink;
+  linkedin: SocialLink;
+  email: SocialLink;
+  kaggle: SocialLink;
+  behance: SocialLink;
+  tekly: SocialLink;
+  resume: SocialLink;
 }
