@@ -72,7 +72,7 @@ export const projects: Project[] = [
     index: "02",
     title: "FSP — Financial Services Prediction",
     category: ["Machine Learning", "Financial Data", "Classification"],
-    year: "2026",
+    year: "2026 - ONGOING",
     overview:
       "A machine-learning classification project working with customer-level financial behavior data — transactions, transfers, bill payments, airtime purchases, cashouts, merchant payments, agent withdrawals, and account activity.",
     problem: [
