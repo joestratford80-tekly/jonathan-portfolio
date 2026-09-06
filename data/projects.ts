@@ -23,7 +23,7 @@ export const projects: Project[] = [
     index: "01",
     title: "WAXAL-ASR-2026",
     category: ["Automatic Speech Recognition", "AI / NLP / Speech", "Machine Learning"],
-    year: "2026",
+    year: "2026 - ONGOING",
     overview:
       "An individual project on Automatic Speech Recognition for low-resource African languages, built through the WAXAL ASR challenge. The work explores what it actually takes to build speech recognition systems where training resources are limited.",
     problem: [
