@@ -108,11 +108,10 @@ function SocialLine({ label, href }: { label: string; href: string }) {
       href={href}
       className="inline-flex w-fit items-center gap-2.5 border-b border-transparent text-[13px] uppercase tracking-[.06em] text-ink-dim transition-colors hover:border-accent-line hover:text-accent"
     >
-      {label} — {href === "#" ? `[${label.toUpperCase()}]` : href}
+      {href === "#" ? `[${label.toUpperCase()}]` : label}
     </a>
   );
 }
-
 function Field({
   id,
   name,
