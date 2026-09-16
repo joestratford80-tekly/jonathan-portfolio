@@ -14,11 +14,11 @@ import type { SocialLinks } from "@/types";
 // ============================================
 
 export const socialLinks: SocialLinks = {
-  github: "https://github.com/joestratford80-tekly", label: "GitHub" ,
-  linkedin: "https://www.linkedin.com/in/jonathan-okoloko-5ba629310/", label: "LinkedIn",
-  email: "mailto:jonathanokoloko0@gmail.com", label: "Email",
-  kaggle: "https://www.kaggle.com/jonathantek", label: "Kaggle",
+  github: "https://github.com/joestratford80-tekly",
+  linkedin: "https://www.linkedin.com/in/jonathan-okoloko-5ba629310/",
+  email: "mailto:jonathanokoloko0@gmail.com",
+  kaggle: "https://www.kaggle.com/jonathantek",
   behance: "#", label: "Behance" ,
   tekly: "#", label: "Tekly" ,
-  resume: "https://drive.google.com/file/d/1Xwa-I6JZ7J5fXdBZ8Yxs0_MgZV6E4NGJ/view?usp=drive_link", label: "Resume",
+  resume: "https://drive.google.com/file/d/1Xwa-I6JZ7J5fXdBZ8Yxs0_MgZV6E4NGJ/view?usp=drive_link",
 };
