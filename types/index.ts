@@ -80,7 +80,7 @@ export interface LabEntry {
 }
 
 export interface SocialLink {
-  url: string;
+  url: SocialLink;
   label: string;
 }
 
