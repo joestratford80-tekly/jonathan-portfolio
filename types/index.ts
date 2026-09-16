@@ -82,7 +82,6 @@ export interface LabEntry {
 export interface SocialLinks {
   github: string;
   linkedin: string;
-  email: string;
   kaggle: string;
   behance: string;
   tekly: string;
