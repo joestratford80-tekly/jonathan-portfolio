@@ -14,7 +14,7 @@ export interface ProjectMetric {
 }
 
 export interface ProjectLinks {
-  [label: string]: string;
+  [label: SocialLink]: string;
 }
 
 export interface Project {
