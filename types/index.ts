@@ -14,7 +14,7 @@ export interface ProjectMetric {
 }
 
 export interface ProjectLinks {
-  [label: SocialLink]: string;
+  [label: string]: string;
 }
 
 export interface Project {
@@ -79,17 +79,12 @@ export interface LabEntry {
   next: string;
 }
 
-export interface SocialLink {
-  url: SocialLink;
-  label: string;
-}
-
 export interface SocialLinks {
-  github: SocialLink;
-  linkedin: SocialLink;
-  email: SocialLink;
-  kaggle: SocialLink;
-  behance: SocialLink;
-  tekly: SocialLink;
-  resume: SocialLink;
+  github: string;
+  linkedin: string;
+  email: string;
+  kaggle: string;
+  behance: string;
+  tekly: string;
+  resume: string;
 }
