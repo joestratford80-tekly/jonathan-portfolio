@@ -18,7 +18,7 @@ export const socialLinks: SocialLinks = {
   linkedin: "https://www.linkedin.com/in/jonathan-okoloko-5ba629310/",
   email: "mailto:jonathanokoloko0@gmail.com",
   kaggle: "https://www.kaggle.com/jonathantek",
-  behance: "#", label: "Behance" ,
-  tekly: "#", label: "Tekly" ,
+  behance: "#",
+  tekly: "#",
   resume: "https://drive.google.com/file/d/1Xwa-I6JZ7J5fXdBZ8Yxs0_MgZV6E4NGJ/view?usp=drive_link",
 };
