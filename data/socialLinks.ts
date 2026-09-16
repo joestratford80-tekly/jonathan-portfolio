@@ -16,7 +16,7 @@ import type { SocialLinks } from "@/types";
 export const socialLinks: SocialLinks = {
   github: "https://github.com/joestratford80-tekly",
   linkedin: "https://www.linkedin.com/in/jonathan-okoloko-5ba629310/",
-  email: "mailto:jonathanokoloko0@gmail.com",
+  email: "jonathanokoloko0@gmail.com",
   kaggle: "https://www.kaggle.com/jonathantek",
   behance: "#",
   tekly: "#",
