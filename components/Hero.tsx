@@ -6,35 +6,31 @@ import Reveal from "./Reveal";
 import { socialLinks } from "@/data/socialLinks";
 import { hero, heroIdentity, heroIdentityInterval, heroIdentityFinalHoldBonus, siteMeta } from "@/data/siteContent";
 
-/**
- * Rotates through `heroIdentity`. Hierarchy communicated:
- * WHO I AM (headline) -> WHAT I'M BECOMING (rotator) -> WHAT I BUILD (sub headline).
- * The final phrase in the list is held longer for emphasis.
- */
 function useIdentityRotator() {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
-
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let timeout: ReturnType<typeof setTimeout>;
+    let fadeTimeout: ReturnType<typeof setTimeout>;
 
     function schedule() {
       const isFinal = index === heroIdentity.length - 1;
-      const hold = heroIdentityInterval + (isFinal ? heroIdentityFinalHoldBonus : 0);
       timeout = setTimeout(() => {
         setVisible(false);
-        setTimeout(() => {
-          setIndex((i) => (i + 1) % heroIdentity.length);
+        fadeTimeout = setTimeout(() => {
+          setIndex((current) => (current + 1) % heroIdentity.length);
           setVisible(true);
-        }, 400);
-      }, hold);
+        }, 300);
+      }, heroIdentityInterval + (isFinal ? heroIdentityFinalHoldBonus : 0));
     }
 
     schedule();
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      clearTimeout(fadeTimeout);
+    };
   }, [index]);
 
   return { word: heroIdentity[index], visible };
@@ -44,94 +40,93 @@ export default function Hero() {
   const { word, visible } = useIdentityRotator();
 
   return (
-    <section id="hero" className="relative flex min-h-screen items-center pb-20 pt-[120px]">
-      <div className="mx-auto grid w-full max-w-wrap grid-cols-1 gap-[60px] px-8 lg:grid-cols-[1.15fr_.85fr] lg:items-center">
-        <div>
-          <div className="mb-[26px] flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[.14em] text-ink-faint">
-            <span className="text-accent">/</span> {hero.eyebrow}
+    <section id="hero" className="hero-section relative flex min-h-screen items-center overflow-hidden pb-16 pt-[120px]">
+      <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div className="hero-orb hero-orb-one pointer-events-none absolute" aria-hidden="true" />
+      <div className="hero-orb hero-orb-two pointer-events-none absolute" aria-hidden="true" />
+
+      <div className="relative z-[1] mx-auto grid w-full max-w-wrap grid-cols-1 items-center gap-8 px-6 sm:px-8 lg:grid-cols-[1.08fr_.92fr] lg:gap-2">
+        <div className="relative z-[2] py-8 lg:py-16">
+          <div className="mb-7 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[.2em] text-ink-faint">
+            <span className="h-px w-8 bg-accent" /> {hero.eyebrow}
           </div>
-          <h1 className="font-display text-[clamp(3rem,7.4vw,6.2rem)] font-bold leading-[.98] tracking-[-.02em]">
+
+          <h1 className="hero-title font-display text-[clamp(3.35rem,8.2vw,7.4rem)] font-bold leading-[.88] tracking-[-.075em]">
             {hero.headline.map((line, i) => (
-              <span key={i}>
+              <span key={i} className={i === hero.headline.length - 1 ? "hero-title-accent block" : "block"}>
                 {line}
-                {i < hero.headline.length - 1 && <br />}
               </span>
             ))}
           </h1>
-          <div className="mt-[22px] font-display text-[clamp(1.1rem,2vw,1.5rem)] font-medium tracking-[-.005em] text-accent">
-            {hero.sub}
+
+          <div className="mt-7 flex items-center gap-3">
+            <span className="h-px w-8 bg-accent" />
+            <p className="font-display text-[clamp(1rem,1.8vw,1.3rem)] font-medium tracking-[.04em] text-ink">
+              {hero.sub}
+            </p>
           </div>
-          <p className="mt-[26px] max-w-[480px] text-base text-ink-dim">{hero.copy}</p>
-          <div className="mt-[34px] flex items-baseline gap-2.5 text-sm">
-            <span className="text-xs uppercase tracking-[.1em] text-ink-faint">I&apos;M A</span>
+
+          <p className="mt-7 max-w-[510px] text-[15px] leading-[1.9] text-ink-dim sm:text-base">{hero.copy}</p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+            <span className="text-[10px] font-semibold uppercase tracking-[.2em] text-ink-faint">Currently</span>
             <span
-              className="font-display text-lg font-semibold text-ink transition-all duration-400 ease-site"
-              style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(6px)" }}
+              className="font-display text-base font-semibold text-accent transition-all duration-300 ease-site sm:text-lg"
+              style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(5px)" }}
+              aria-live="polite"
             >
               {word}
             </span>
           </div>
-          <div className="mt-11 flex flex-wrap gap-[18px]">
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2.5 rounded-sm bg-ink px-[26px] py-[15px] text-[13px] font-semibold uppercase tracking-[.06em] text-bg transition-all duration-[350ms] ease-site hover:-translate-y-0.5 hover:bg-accent hover:text-white"
-            >
-              Explore My Work →
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a href="#projects" className="hero-primary-link inline-flex items-center gap-3 px-6 py-4 text-[11px] font-bold uppercase tracking-[.13em]">
+              Explore selected work <span aria-hidden="true">↗</span>
             </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2.5 rounded-sm border border-line px-[26px] py-[15px] text-[13px] font-semibold uppercase tracking-[.06em] transition-all duration-[350ms] ease-site hover:-translate-y-0.5 hover:border-accent-line hover:text-accent"
-            >
-              Let&apos;s Connect ↗
+            <a href="#contact" className="hero-secondary-link inline-flex items-center gap-3 px-6 py-4 text-[11px] font-bold uppercase tracking-[.13em]">
+              Start a conversation <span aria-hidden="true">↗</span>
             </a>
           </div>
-          <div className="mt-[46px] flex gap-[22px]">
-            <a
-              href={socialLinks.github}
-              className="border-b border-transparent pb-0.5 text-xs uppercase tracking-[.1em] text-ink-faint transition-colors hover:border-accent-line hover:text-accent"
-            >
-              GitHub
-            </a>
-            <a
-              href={socialLinks.linkedin}
-              className="border-b border-transparent pb-0.5 text-xs uppercase tracking-[.1em] text-ink-faint transition-colors hover:border-accent-line hover:text-accent"
-            >
-              LinkedIn
-            </a>
-            <a
-              href={socialLinks.email}
-              className="border-b border-transparent pb-0.5 text-xs uppercase tracking-[.1em] text-ink-faint transition-colors hover:border-accent-line hover:text-accent"
-            >
-              Email
-            </a>
+
+          <div className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-3">
+            {[["GitHub", socialLinks.github], ["LinkedIn", socialLinks.linkedin], ["Email", socialLinks.email]].map(([label, href]) => (
+              <a key={label} href={href} className="hero-social-link text-[10px] font-semibold uppercase tracking-[.18em] text-ink-faint">
+                {label}
+              </a>
+            ))}
           </div>
         </div>
 
-        <Reveal className="relative">
-          <div className="absolute -top-[30px] left-0 font-display text-xs tracking-[.1em] text-ink-faint">
-            [ PORTRAIT ]
+        <Reveal className="portrait-composition relative mx-auto w-full max-w-[570px] lg:-ml-5 lg:mt-2">
+          <div className="portrait-index absolute left-4 top-8 z-[2] font-display text-[10px] uppercase tracking-[.22em] text-ink-faint sm:left-0">
+            <span className="text-accent">01</span> / THE PERSON BEHIND THE WORK
           </div>
-          <div className="portrait-box group relative aspect-[4/5] overflow-hidden border border-line bg-surface">
+          <div className="portrait-stage relative mx-auto aspect-[4/5] w-full max-w-[540px]">
+            <div className="portrait-ghost font-display" aria-hidden="true">JO</div>
             <Image
               src="/images/profile/profile.jpg"
               alt={`Portrait of ${siteMeta.name}`}
               fill
               priority
-              sizes="(max-width: 1023px) 100vw, 40vw"
-              className="object-cover transition-[filter,transform] duration-[1200ms] ease-site [filter:grayscale(.55)_contrast(1.05)_brightness(.92)] group-hover:scale-[1.02] group-hover:[filter:grayscale(.1)_contrast(1.05)_brightness(.98)]"
+              sizes="(max-width: 1023px) 90vw, 48vw"
+              className="portrait-image object-cover"
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg/75" />
+            <div className="portrait-light" aria-hidden="true" />
           </div>
-          <div className="mt-3.5 flex justify-between text-[11.5px] uppercase tracking-[.08em] text-ink-faint">
+          <div className="portrait-caption relative z-[2] -mt-5 flex items-center justify-between px-5 text-[10px] font-semibold uppercase tracking-[.17em] sm:px-0">
             <span>{siteMeta.name}</span>
-            <span>{siteMeta.location}</span>
+            <span className="text-accent">{siteMeta.location}, NG</span>
+          </div>
+          <div className="portrait-note absolute bottom-16 right-0 z-[2] hidden max-w-[150px] border-l border-accent pl-3 text-[10px] uppercase leading-[1.7] tracking-[.12em] text-ink-faint sm:block">
+            Learning in public. Building with intent.
           </div>
         </Reveal>
       </div>
 
-      <div className="absolute bottom-9 left-8 hidden items-center gap-2.5 text-[11px] uppercase tracking-[.14em] text-ink-faint sm:flex">
-        <span className="h-[34px] w-px animate-cue bg-gradient-to-b from-accent to-transparent" /> Scroll
+      <div className="absolute bottom-8 left-8 hidden items-center gap-3 text-[10px] font-semibold uppercase tracking-[.2em] text-ink-faint sm:flex">
+        <span className="scroll-line h-9 w-px bg-accent" /> Scroll to explore
       </div>
+      <div className="absolute bottom-8 right-8 hidden text-[10px] uppercase tracking-[.18em] text-ink-faint sm:block">Portfolio / 2026</div>
     </section>
   );
 }
